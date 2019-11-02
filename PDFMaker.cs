@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 
 using System.ComponentModel;
 using System.Data;
@@ -26,57 +26,71 @@ using iText.Kernel.Colors;
 
 namespace JPEGtoPDF
 {
+      
+
     class PDFMaker
     {
-        public static void createDocument(List<ImageSelection> listImages, PageSize pageSize, int imgNumber, string exportFile)
+        public static void createDocument(List<ImageSelection> listImages,Appearance appearance, PageSize pageSize, string exportFile)
         {
+            
+            checkSameDocuments(ref exportFile);
+
             using (PdfWriter writer = new PdfWriter(exportFile))
             {
                 using (PdfDocument pdf = new PdfDocument(writer))
                 {
                    Document pdoc = new Document(pdf, pageSize);
+                    //PdfPage pdfPage = new PdfPage();
 
-
-                    pdoc.SetMargins(14.175f, 14.175f, 14.175f, 14.175f);
-                    //pdoc.SetMargins(0,0,0,0);
-                    //pdoc.
-                    //MessageBox.Show(pdoc.GetPageEffectiveArea(pageSize).ToString());
-
-
-                    Table table = new Table(2);
-                    //table.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
-
+                    //pdoc.SetMargins(14.175f, 14.175f, 14.175f, 14.175f);
+                    pdoc.SetMargins(14.1665f, 14.1665f, 14.1665f, 14.1665f);
+                    //PdfContents pdfContents = new PdfContents(pdoc,pageSize);
+                    //pdoc.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
+                    float[] dim = appearance.getDimensions();
+                    Table table = new Table(dim, true);//.UseAllAvailableWidth();
                     table.SetDocument(pdoc);
-                   // table.SetMaxWidth(Docume)
-                    //table.seth
-                    //table.SetMargins(14.175f, 14.175f, 14.175f, 14.175f);
-                    
-                    //table.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
-                    //table.SetVerticalAlignment(iText.Layout.Properties.VerticalAlignment.MIDDLE);
-                    for (int i = 0; i < 4/*listImages.Count*/; i++)
+                    //table.SetKeepTogether(true);
+                    table.SetExtendBottomRow(false);
+                    Alignment.setAlignment(appearance);
+                    for (int k = 0, i = 0, j = 0; k < /*appearance.getImgNumber()*/listImages.Count; k++, j++)
                     {
-                        Image img = new Image(iText.IO.Image.ImageDataFactory.Create(listImages.ElementAt(i).getPath()));
+                        if (j == appearance.getDimensions().Length) { j = 0; i++; }
+                        if (j == appearance.getDimensions().Length && i == appearance.getHeightRatio()) j = i = 0;
+
+                        Image img = new Image(iText.IO.Image.ImageDataFactory.Create(listImages.ElementAt(k).getPath()));
+                        // img = imageRescale(img, pageSize, appearance.getImgNumber());
+                        Alignment.setImage(ref img, i, j);
+                        //MessageBox.Show(i + "  " + j);
                         img.SetAutoScale(true);
                         
-                        Cell cell = new Cell();
-                        //img.SetHeight(cell.GetHeight());
-                        //img.SetWidth(cell.GetWidth());
+                        /*if(i%appearance.getImgNumber() == 0) 
+                        {
+                            MessageBox.Show("ijo");
+                           pdoc.Add(new Page); 
+                           // pdoc.
+                            table = new Table(dim, true);
+                            table.SetDocument(pdoc);
+                        }*/
 
-                        //img.ScaleToFit(iText.Layout.Style.GetHeight.cell(), cell.GetHeight(UnitValue.POINT));
-                        //cell.SetHeight(0.5f);
-                        //cell.SetBackgroundColor(ColorConstants.BLACK);
+                        Cell cell = new Cell();
+                        //cell.SetHorizontalAlignment 
+                        //cellStyle(ref cell);
+                        cell.SetHeight(UnitValue.CreatePointValue((pageSize.GetHeight()-28.333f- 14.166f) / appearance.getHeightRatio() ));
+                        //cell.SetHeight(UnitValue.CreatePointValue((table.GetHeight().GetValue() / appearance.getHeightRatio())));
+                        //cell.SetHeight(UnitValue.CreatePointValue(table.GetHeight(). / 2));
+                        //MessageBox.Show( table.GetHeight().ToString());
+                        //img.SetHorizontalAlignment( iText.Layout.Properties.HorizontalAlignment.RIGHT);
+
                         cell.Add(img);
-                        //img = imageRescale(img, pageSize, imgNumber);
                         
-                        //MessageBox.Show(i.ToString());
-                        //if (i % 2 == 0) table.StartNewRow();
                         table.AddCell(cell);
 
 
 
 
                     }
-
+                    Alignment.setAlignment(ref table);
+                   
                     pdoc.Add(table);
 
                     pdoc.Close();
@@ -85,59 +99,16 @@ namespace JPEGtoPDF
                 }
             }
 
-           // CreatePdf(exportFile, pageSize)
+           
         }
 
-        /*public  static void CreatePdf(String filename, PageSize pageSize)
-        {
-            // step 1
-            using (PdfWriter writer = new PdfWriter(exportFile))
-            {
-                using (PdfDocument pdf = new PdfDocument(writer))
-                {
-                    Document pdoc = new Document(pdf, pageSize);
-
-                    Document.Add(createFirstTable());
-
-                }
-            }
-        }*/
-
-        /**
-         * Creates our first table
-         * @return our first table
-         */
-        /*public static PdfPTable createFirstTable()
-        {
-            // a table with three columns
-            iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(3);
-            // the cell object
-            PdfPCell cell;
-            // we add a cell with colspan 3
-            cell = new PdfPCell(new iTextSharp.text.Phrase("Cell with colspan 3"));
-            //cell.setColspan(3);
-            cell.Colspan = 3;
-            table.AddCell(cell);
-            // now we add a cell with rowspan 2
-            cell = new PdfPCell(new iTextSharp.text.Phrase("Cell with rowspan 2"));
-            //cell.setRowspan(2);
-            cell.Rowspan = 2;
-            table.AddCell(cell);
-            // we add the four remaining cells with addCell()
-            table.AddCell("row 1; cell 1");
-            table.AddCell("row 1; cell 2");
-            table.AddCell("row 2; cell 1");
-            table.AddCell("row 2; cell 2");
-            return table;
-        }
-        */
-        /*static Image imageRescale(Image img, PageSize pageSize, int imgNumber)
+        
+        static Image imageRescale(Image img, PageSize pageSize, int imgNumber)
             {
 
-                float sizeWidth = pageSize.GetWidth() - 28.35f;
-                float sizeHeight = pageSize.GetHeight() - 28.35f;
-                //float sizeWidth= pageSize.GetWidth();
-                //float sizeHeight= pageSize.GetHeight();
+                float sizeWidth = pageSize.GetWidth() - 14.175f;
+                float sizeHeight = pageSize.GetHeight() - 14.175f;
+                
 
 
 
@@ -177,16 +148,29 @@ namespace JPEGtoPDF
 
 
 
-
+            //UnitValue.CreatePointValue(pageSize.GetHeight()/2);
 
                 img.SetHeight(img.GetImageHeight() * imgheight);
                 img.SetWidth(img.GetImageWidth() * imgwidth);
+            //img.SetHeight(UnitValue.CreatePointValue(pageSize.GetHeight() / 2));
 
                 return img;
             }
 
 
+          static void cellStyle(ref Cell cell)
+        {
+            cell.SetPadding(0);
+            cell.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
+        }
 
-        }*/
+
+        static void checkSameDocuments(ref string exportFile)
+        {
+            int countFiles = 0;
+            while (File.Exists(exportFile.Substring(0, exportFile.Length - 4) + ((countFiles > 0) ? "(" + (countFiles + 1).ToString() + ")" : "") + ".pdf") ) countFiles++;
+            exportFile = exportFile.Substring(0,exportFile.Length-4)+ ((countFiles > 0) ? "(" + (countFiles + 1).ToString() + ")" : "")+".pdf"; 
+        }
+        }
     }
-}
+

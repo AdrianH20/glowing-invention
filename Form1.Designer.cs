@@ -51,6 +51,8 @@
             this.textBoxPDFName = new System.Windows.Forms.TextBox();
             this.labelPDFOutput = new System.Windows.Forms.Label();
             this.labelPageSize = new System.Windows.Forms.Label();
+            this.labelFullPages = new System.Windows.Forms.Label();
+            this.labelNrImages = new System.Windows.Forms.Label();
             this.panelSelection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.panelPageSizeSettings.SuspendLayout();
@@ -146,7 +148,7 @@
             this.panelPageSizeSettings.Controls.Add(this.comboBoxPages);
             this.panelPageSizeSettings.Controls.Add(this.comboBoxFormat);
             this.panelPageSizeSettings.Controls.Add(this.labelPageFormat);
-            this.panelPageSizeSettings.Location = new System.Drawing.Point(347, 198);
+            this.panelPageSizeSettings.Location = new System.Drawing.Point(341, 178);
             this.panelPageSizeSettings.Name = "panelPageSizeSettings";
             this.panelPageSizeSettings.Size = new System.Drawing.Size(324, 183);
             this.panelPageSizeSettings.TabIndex = 13;
@@ -190,6 +192,7 @@
             this.comboBoxPages.Name = "comboBoxPages";
             this.comboBoxPages.Size = new System.Drawing.Size(263, 24);
             this.comboBoxPages.TabIndex = 22;
+            this.comboBoxPages.SelectedIndexChanged += new System.EventHandler(this.comboBoxPages_SelectedIndexChanged);
             // 
             // comboBoxFormat
             // 
@@ -218,7 +221,7 @@
             this.panel1.Controls.Add(this.labelOtuputPath);
             this.panel1.Controls.Add(this.labelPDFName);
             this.panel1.Controls.Add(this.textBoxPDFName);
-            this.panel1.Location = new System.Drawing.Point(347, 55);
+            this.panel1.Location = new System.Drawing.Point(341, 35);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(324, 120);
             this.panel1.TabIndex = 14;
@@ -269,7 +272,7 @@
             // labelPDFOutput
             // 
             this.labelPDFOutput.AutoSize = true;
-            this.labelPDFOutput.Location = new System.Drawing.Point(344, 35);
+            this.labelPDFOutput.Location = new System.Drawing.Point(338, 15);
             this.labelPDFOutput.Name = "labelPDFOutput";
             this.labelPDFOutput.Size = new System.Drawing.Size(166, 17);
             this.labelPDFOutput.TabIndex = 15;
@@ -278,17 +281,37 @@
             // labelPageSize
             // 
             this.labelPageSize.AutoSize = true;
-            this.labelPageSize.Location = new System.Drawing.Point(344, 178);
+            this.labelPageSize.Location = new System.Drawing.Point(338, 158);
             this.labelPageSize.Name = "labelPageSize";
             this.labelPageSize.Size = new System.Drawing.Size(96, 17);
             this.labelPageSize.TabIndex = 16;
             this.labelPageSize.Text = "Page Settings";
+            // 
+            // labelFullPages
+            // 
+            this.labelFullPages.AutoSize = true;
+            this.labelFullPages.Location = new System.Drawing.Point(338, 398);
+            this.labelFullPages.Name = "labelFullPages";
+            this.labelFullPages.Size = new System.Drawing.Size(82, 17);
+            this.labelFullPages.TabIndex = 17;
+            this.labelFullPages.Text = "Full Pages :";
+            // 
+            // labelNrImages
+            // 
+            this.labelNrImages.AutoSize = true;
+            this.labelNrImages.Location = new System.Drawing.Point(338, 376);
+            this.labelNrImages.Name = "labelNrImages";
+            this.labelNrImages.Size = new System.Drawing.Size(93, 17);
+            this.labelNrImages.TabIndex = 18;
+            this.labelNrImages.Text = "Images :      0";
             // 
             // FormImageToPDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 547);
+            this.Controls.Add(this.labelNrImages);
+            this.Controls.Add(this.labelFullPages);
             this.Controls.Add(this.labelPageSize);
             this.Controls.Add(this.labelPDFOutput);
             this.Controls.Add(this.panel1);
@@ -336,6 +359,8 @@
         private System.Windows.Forms.ComboBox comboBoxAppearance;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button infoButton;
+        private System.Windows.Forms.Label labelFullPages;
+        private System.Windows.Forms.Label labelNrImages;
     }
 }
 

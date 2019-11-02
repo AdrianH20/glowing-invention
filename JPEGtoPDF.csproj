@@ -91,6 +91,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alignment.cs" />
+    <Compile Include="Appearance.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

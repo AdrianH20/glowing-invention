@@ -32,6 +32,9 @@ namespace JPEGtoPDF
 
         List<ImageSelection> listImages = new List<ImageSelection>();
 
+        List<Format> formats = new List<Format>();
+        Appearance appearance;
+
         public FormImageToPDF()
         {
             InitializeComponent();
@@ -42,20 +45,23 @@ namespace JPEGtoPDF
 
         void populateComboBox()
         {
-            List<Format> formats = new List<Format>() 
-            { 
-                new Format()
-                {
-                    id = "01",
-                    formatValue = "20x20 (cm)",
-                    numberFormats =new List<PicturesPerPage>
+            
+
+            formats.Add(
+            new Format()
+            {
+                id = "01",
+                formatValue = "20x20 (cm)",
+                numberFormats = new List<PicturesPerPage>
                     {
                         new PicturesPerPage("01","3"),
                         new PicturesPerPage("01","4")
                     }
-                },
-                new Format()
-                {
+            });
+
+            formats.Add(
+            new Format()
+            {
                     id = "02",
                     formatValue = "21x30 (cm)",
                     numberFormats = new List<PicturesPerPage>
@@ -63,17 +69,18 @@ namespace JPEGtoPDF
                         new PicturesPerPage("02","4"),
                         new PicturesPerPage("02","6")
                     }
-                },
-                new Format()
-                {
+            });
+
+            formats.Add(
+            new Format()
+            {
                     id = "03",
                     formatValue = "21x15 (cm)",
                     numberFormats = new List<PicturesPerPage>
-                    {
+                     {
                         new PicturesPerPage("03","4")
-                    }
-                }
-            };
+                     }
+            });
 
             
             comboBoxFormat.DataSource = formats;
@@ -103,14 +110,20 @@ namespace JPEGtoPDF
             {
                 pathToImages = openFileDialog.FileNames.ToArray();
                 fileNames = openFileDialog.SafeFileNames.ToArray();
+
+
+                for (int i = 0; i < fileNames.Length; i++)
+                    if (checkingDuplicates(fileNames.ElementAt(i)))
+                    {
+                        listImages.Add(new ImageSelection(fileNames.ElementAt(i), pathToImages.ElementAt(i)));
+                        listBoxImageFile.Items.Add(listImages.Last());
+                    }
+                    else MessageBox.Show("An image with this name already exists. Please rename or choose another image !");
+                labelNrImages.Text = "Images :      " + listImages.Count;
+                labelFullPages.Text = "Full Pages : " + (listImages.Count / imgNumber).ToString();
             }
-            for (int i = 0; i < fileNames.Length; i++)
-                if (checkingDuplicates(fileNames.ElementAt(i)))
-                {
-                    listImages.Add(new ImageSelection(fileNames.ElementAt(i), pathToImages.ElementAt(i)));
-                    listBoxImageFile.Items.Add(listImages.Last());
-                }
-                else MessageBox.Show("An image with this name already exists. Please rename or choose another image !");
+
+           
 
         }
 
@@ -144,8 +157,8 @@ namespace JPEGtoPDF
                     }
                 }
             }
-
-
+            labelNrImages.Text = "Images :      " + listImages.Count;
+            labelFullPages.Text = "Full Pages : " + (listImages.Count / imgNumber).ToString();
         }
 
 
@@ -170,30 +183,50 @@ namespace JPEGtoPDF
             PageSize pageSize =  new PageSize(567f, 567f);
 
             pdfName = textBoxPDFName.Text;
-            if (!(textBoxPDFName.Text.EndsWith(".pdf"))) pdfName+=".pdf";
+            if (!(textBoxPDFName.Text.EndsWith(".pdf"))) pdfName += ".pdf";
+            
+
            
 
+
+            
+            AppearanceType appearanceType= AppearanceType.Portrait;
 
            
             string exportFile = Path.Combine(textBoxOutputPath.Text, pdfName);
            
 
             
-                switch (comboBoxFormat.Text)
-                {
-                    case "20x20 (cm)": pageSize = new PageSize(567f, 567f);       break;
-                    case "21x30 (cm)": pageSize = new PageSize(595.35f, 850.5f);  break;
-                    case "21x15 (cm)": pageSize = new PageSize(595.35f, 425.25f); break;
-                }
+                
                 switch (comboBoxPages.Text)
                 {
                     case "3": imgNumber = 3;  break;
                     case "4": imgNumber = 4;  break;
                     case "6": imgNumber = 6;  break;
                 }
+                
+                switch(comboBoxAppearance.Text)
+                {
+                    case "Portrait": appearanceType = AppearanceType.Portrait;      break;
+                    case "Landscape": appearanceType = AppearanceType.Landscape;    break;
+                    case "Magic Appearance": appearanceType = AppearanceType.Magic; break;
+                }
+
+            switch (comboBoxFormat.Text)
+            {
+                case "20x20 (cm)": 
+                    pageSize = new PageSize(566.666f, 566.666f);
+                    appearance = new Appearance(appearanceType, formats.ElementAt(0), imgNumber); break;
+                case "21x30 (cm)": 
+                    pageSize = new PageSize(594.999f, 849.999f);
+                    appearance = new Appearance(appearanceType, formats.ElementAt(1), imgNumber); break;
+                case "21x15 (cm)": 
+                    pageSize = new PageSize(594.999f, 425.000f);
+                    appearance = new Appearance(appearanceType, formats.ElementAt(2), imgNumber); break;
+            }
 
 
-            PDFMaker.createDocument(listImages, pageSize, imgNumber, exportFile);
+            PDFMaker.createDocument(listImages, appearance, pageSize, exportFile);
 
             }
         
@@ -217,6 +250,7 @@ namespace JPEGtoPDF
 
         private void comboBoxFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
+            comboBoxAppearance.SelectedItem = "Landscape";
             if ((comboBoxFormat.Text == "21x30 (cm)" || comboBoxFormat.Text == "21x15 (cm)"))
                 if (!comboBoxAppearance.Items.Contains("Magic Appearance")) comboBoxAppearance.Items.Add("Magic Appearance");
                 else return;
@@ -228,6 +262,18 @@ namespace JPEGtoPDF
         {
             formatInformation formatInformation = new formatInformation();
             formatInformation.Show();
+        }
+
+        private void comboBoxPages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxPages.Text)
+            {
+                case "3": imgNumber = 3; break;
+                case "4": imgNumber = 4; break;
+                case "6": imgNumber = 6; break;
+            }
+
+            labelFullPages.Text = "Full Pages : " + (listImages.Count /imgNumber ).ToString();
         }
     }
     }
