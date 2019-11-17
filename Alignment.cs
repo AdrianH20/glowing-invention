@@ -16,8 +16,8 @@ namespace JPEGtoPDF
     class Alignment
     {
          static Table tableAl = null;
-         static private HorizontalAlignment[,] horizontalAlignments;
-         static private VerticalAlignment[,] verticalAlignments;
+         static private HorizontalAlignment[,] horizontalAlignments = new HorizontalAlignment[3,3];
+         static private VerticalAlignment[,] verticalAlignments = new VerticalAlignment[3,3];
         static public void setAlignment( ref Table table)
         {
             tableAl = table;
@@ -56,8 +56,8 @@ namespace JPEGtoPDF
         {
 
             
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.RIGHT;
             verticalAlignments[0, 0] = VerticalAlignment.BOTTOM;
@@ -81,8 +81,8 @@ namespace JPEGtoPDF
         static public void alignment_2(int rows, int cols)
         {
             
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.RIGHT;
             verticalAlignments[0, 0] = VerticalAlignment.BOTTOM;
@@ -102,8 +102,8 @@ namespace JPEGtoPDF
         static public void alignment_3(int rows, int cols)
         {
             
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.RIGHT;
             verticalAlignments[0, 0] = VerticalAlignment.MIDDLE;
@@ -121,8 +121,8 @@ namespace JPEGtoPDF
         static public void alignment_4(int rows, int cols)
         {
            
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.RIGHT;
             verticalAlignments[0, 0] = VerticalAlignment.BOTTOM;
@@ -147,8 +147,8 @@ namespace JPEGtoPDF
         static public void alignment_5(int rows, int cols)
         {
             
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.CENTER;
             verticalAlignments[0, 0] = VerticalAlignment.BOTTOM;
@@ -164,8 +164,8 @@ namespace JPEGtoPDF
         }
         static public void alignment_6(int rows, int cols)
         {
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.CENTER;
             verticalAlignments[0, 0] = VerticalAlignment.BOTTOM;
@@ -185,8 +185,8 @@ namespace JPEGtoPDF
         }
         static public void alignment_7(int rows, int cols)
         {
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.CENTER;
             verticalAlignments[0, 0] = VerticalAlignment.BOTTOM;
@@ -211,8 +211,8 @@ namespace JPEGtoPDF
         static public void alignment_8(int rows, int cols)
         {
 
-            horizontalAlignments = new HorizontalAlignment[rows, cols];
-            verticalAlignments = new VerticalAlignment[rows, cols];
+            /*horizontalAlignments = new HorizontalAlignment[rows, cols];
+            verticalAlignments = new VerticalAlignment[rows, cols];*/
 
             horizontalAlignments[0, 0] = HorizontalAlignment.RIGHT;
             verticalAlignments[0, 0] = VerticalAlignment.MIDDLE;
