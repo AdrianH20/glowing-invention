@@ -257,7 +257,7 @@ namespace JPEGtoPDF
                     //cell.SetMinHeight(documentHeight / appearance.getHeightRatio());
                     //cell.SetMaxHeight(documentHeight / appearance.getHeightRatio());
 
-                    MessageBox.Show(cell.GetHeight().GetValue().ToString());
+                    //MessageBox.Show(cell.GetHeight().GetValue().ToString());
                    /* cell.SetWidth(table.GetWidth().GetValue() / appearance.getDimensions().Length);
                     cell.SetMinWidth(table.GetWidth().GetValue() / appearance.getDimensions().Length);
                     cell.SetMaxWidth(table.GetWidth().GetValue() / appearance.getDimensions().Length);*/
