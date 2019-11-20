@@ -210,14 +210,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPEGtoPDF.exe" size="94184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPEGtoPDF.exe" size="91624">
       <assemblyIdentity name="JPEGtoPDF" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rCzqX/5h3IBgT7PGarjSK5kI/HZVpMbr3TstxPUkpqs=</dsig:DigestValue>
+        <dsig:DigestValue>swGfllDSdt9R0OBRw4UHJaOI8s7iniq0m+w2/h215QM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

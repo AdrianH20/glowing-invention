@@ -28,7 +28,7 @@ namespace JPEGtoPDF
         
         public string saveLocation = Environment.CurrentDirectory;
         
-        int imgNumber;
+        int imgNumber=1;
 
         List<ImageSelection> listImages = new List<ImageSelection>();
 
@@ -244,7 +244,7 @@ namespace JPEGtoPDF
                     if (img.ToString() == listBoxImageFile.SelectedItem.ToString())
                     {
                         System.Drawing.Image imgPreview = System.Drawing.Image.FromFile(img.getPath());
-                        //OrientationChecking.rotateCheckingPreview(ref imgPreview, img.getPath());
+                        OrientationChecking.rotateCheckingPreview(ref imgPreview, img.getPath());
                         pictureBoxPreview.Image = imgPreview; break;
                     }
             }

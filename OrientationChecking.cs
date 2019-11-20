@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 using Image = iText.Layout.Element.Image;
 using System.Windows.Forms;
-//using iText.Layout.Element.Ima;
+
 namespace JPEGtoPDF
 {
     class OrientationChecking
@@ -30,7 +30,7 @@ namespace JPEGtoPDF
                 
 
                 if (!rx3.IsMatch(matchType.Value)) degree = -degree;
-                //Console.WriteLine(degree);
+               
                 switch (degree)
                 {
                     case 90:    img.SetRotationAngle(-Math.PI / 2); break;
@@ -42,7 +42,7 @@ namespace JPEGtoPDF
                     case -270:  img.SetRotationAngle(Math.PI * 3 / 2); break;
 
                 }
-                //img.SetRotationAngle(-Math.PI/2);
+               
 
                 
             }
@@ -55,7 +55,7 @@ namespace JPEGtoPDF
         }
 
 
-        /*public static void rotateCheckingPreview( ref System.Drawing.Image imgPreview, string path)
+        public static void rotateCheckingPreview( ref System.Drawing.Image imgPreview, string path)
         {
 
             var directories = MetadataExtractor.ImageMetadataReader.ReadMetadata(path);
@@ -76,23 +76,23 @@ namespace JPEGtoPDF
                         Console.WriteLine($"ERROR: {error}");
                 }
             }
-            //Console.WriteLine("hgjkhl");
+            
 
             Console.WriteLine(orientationTag);
-            Regex rx = new Regex(@"rotate\s+[0-9]{1,3}\s+(cw|ccw|\s){0,1}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex rx = new Regex(@"rotate\s+[0-9]{1,3}(cw|ccw|\s){0,1}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Regex rx2 = new Regex(@"(cw|ccw)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Regex rx3 = new Regex(@"cw", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             if (rx.IsMatch(orientationTag))
             {
-                Console.WriteLine("I'm in");
+               
 
                 Match matchDegree = Regex.Match(orientationTag, @"[0-9]{1,3}");
                 Match matchType = rx2.Match(orientationTag);
                 degree = double.Parse(matchDegree.Value.ToString());
-                Console.WriteLine(degree);
-                if (rx3.IsMatch(matchType.Value)) degree = -degree;
+                
+                if (!rx3.IsMatch(matchType.Value)) degree = -degree;
 
-
+                
 
 
 
@@ -108,13 +108,13 @@ namespace JPEGtoPDF
                         
 
                 }
-                //img.SetRotationAngle(-Math.PI/2);
+                
 
                 
             }
 
             
 
-        }*/
+        }
     }
 }

@@ -51,12 +51,9 @@ namespace JPEGtoPDF
                 using (PdfDocument pdf = new PdfDocument(writer))
                 {
                    Document pdoc = new Document(pdf, pageSize);
-                    //PdfPage pdfPage = new PdfPage();
-
-                   //pdoc.SetMargins(14.175f, 14.175f, 14.175f, 14.175f);
+                   
                     pdoc.SetMargins(14.1665f, 14.1665f, 14.1665f, 14.1665f);
-                    //PdfContents pdfContents = new PdfContents(pdoc,pageSize);
-                    //pdoc.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
+                    
 
 
 
@@ -64,15 +61,11 @@ namespace JPEGtoPDF
 
                     Table table = tableStyle(appearance, pageSize,pdoc);
 
-                    /*IRenderer tableRenderer = table.CreateRendererSubTree().SetParent(pdoc.GetRenderer());
-                    LayoutResult tableLayoutResult =
-                            tableRenderer.Layout(new LayoutContext(new LayoutArea(1, new iText.Kernel.Geom.Rectangle(pageSize.GetHeight()-14.1665f, pageSize.GetWidth() - 14.1665f))));
-
-                    pdf.SetDefaultPageSize(pageSize/*new PageSize(550 + 72, tableLayoutResult.GetOccupiedArea().GetBBox().GetHeight() + 72));*/
+                    
 
 
 
-                    for (int k = 0, i = 0, j = 0; k < /*appearance.getImgNumber()*/listImages.Count; k++, j++)
+                    for (int k = 0, i = 0, j = 0; k < listImages.Count; k++, j++)
                     {
                         if (j == appearance.getDimensions().Length) 
                         { j = 0; i++; }
@@ -109,64 +102,12 @@ namespace JPEGtoPDF
         }
 
         
-        static Image imageRescale(Image img, PageSize pageSize, int imgNumber)
-            {
-
-                float sizeWidth = pageSize.GetWidth() - 14.1665f;
-                float sizeHeight = pageSize.GetHeight() - 14.1665f;
-                
-
-
-
-                switch (imgNumber)
-                {
-                    case 1:
-                        sizeWidth = sizeWidth / img.GetImageWidth();
-
-                        sizeHeight = sizeHeight / img.GetImageHeight();
-                        break;
-                    case 2:
-
-                        sizeWidth = sizeWidth / img.GetImageWidth();
-
-                        sizeHeight = sizeHeight / img.GetImageHeight() / 2;
-                        break;
-                    case 4:
-
-                        sizeWidth = sizeWidth / img.GetImageWidth() / 2;
-                        sizeHeight = sizeHeight / img.GetImageHeight() / 2; break;
-
-                    case 6:
-
-                        sizeWidth = sizeWidth / img.GetImageWidth() / 2;
-                        sizeHeight = sizeHeight / img.GetImageHeight() / 3;
-                        break;
-
-
-                }
-
-                float imgwidth = sizeWidth;
-                float imgheight = sizeHeight;
-
-                if (imgwidth >= imgheight)
-                    imgwidth = imgheight;
-                else imgheight = imgwidth;
-
-
-
-            //UnitValue.CreatePointValue(pageSize.GetHeight()/2);
-
-                img.SetHeight(img.GetImageHeight() * imgheight);
-                img.SetWidth(img.GetImageWidth() * imgwidth);
-            //img.SetHeight(UnitValue.CreatePointValue(pageSize.GetHeight() / 2));
-
-                return img;
-            }
+        
 
 
           static void cellStyle(ref Cell cell)
         {
-            //cell.SetPadding(0);
+            
             cell.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
             cell.SetHorizontalAlignment( HorizontalAlignment.CENTER);
             cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
@@ -177,9 +118,7 @@ namespace JPEGtoPDF
         {
 
         var directories = MetadataExtractor.ImageMetadataReader.ReadMetadata(image.getPath());
-            /*Console.WriteLine("                        ");
-            Console.WriteLine("Nume imagine "+ image.ToString());
-            Console.WriteLine("------------------------");*/
+            
             
 
             foreach (var directory in directories)
@@ -187,7 +126,7 @@ namespace JPEGtoPDF
                 foreach (var tag in directory.Tags)
                     if (tag.Name == "Orientation" && directory.Name == "Exif IFD0")
                     {
-                        //Console.WriteLine($"[{directory.Name}] {tag.Name} = {tag.Description} ");
+                        
                         OrientationChecking.rotateChecking(ref img, tag.Description);
                         break;
                     }
@@ -198,7 +137,7 @@ namespace JPEGtoPDF
             }
         }
 
-            //Console.WriteLine("------------------------");
+           
 
             img.SetHorizontalAlignment(HorizontalAlignment.CENTER);
            img.SetAutoScale(true);
@@ -214,11 +153,7 @@ namespace JPEGtoPDF
             table.UseAllAvailableWidth().SetDocument(pdoc);
 
             table.SetHeight(UnitValue.CreatePointValue(pageSize.GetHeight() - 28.333f));
-            //table.SetWidth(UnitValue.CreatePointValue(pageSize.GetWidth() - 28.333f));
-            //table.SetKeepTogether(true);
-           //table.SetExtendBottomRow(false);
-            //MessageBox.Show(pdoc.GetPageEffectiveArea(pageSize).ApplyMargins(14.1665f, 14.1665f, 14.1665f, 14.1665f,false).GetHeight().ToString());
-            //float documentHeight = pdoc.GetPageEffectiveArea(pageSize).ApplyMargins(14.1665f, 14.1665f, 14.1665f, 14.1665f, false).GetHeight();
+           
             for (int i = 0; i < appearance.getHeightRatio()+1; i++)
             {
                 for (int j = 0; j < appearance.getDimensions().Length; j++)
@@ -226,32 +161,13 @@ namespace JPEGtoPDF
                     Cell cell = new Cell();
                    
                     cell.SetHeight(table.GetHeight().GetValue() / appearance.getHeightRatio() -4.666f);
-                    //cell.SetMinHeight(table.GetHeight().GetValue() / appearance.getHeightRatio() - 10f);
-                    //cell.SetMaxHeight(table.GetHeight().GetValue() / appearance.getHeightRatio());
-                    //cell.SetHeight(documentHeight / appearance.getHeightRatio());
-                    //cell.SetMinHeight(documentHeight / appearance.getHeightRatio());
-                    //cell.SetMaxHeight(documentHeight / appearance.getHeightRatio());
-
-                    //MessageBox.Show(cell.GetHeight().GetValue().ToString());
-                   /* cell.SetWidth(table.GetWidth().GetValue() / appearance.getDimensions().Length);
-                    cell.SetMinWidth(table.GetWidth().GetValue() / appearance.getDimensions().Length);
-                    cell.SetMaxWidth(table.GetWidth().GetValue() / appearance.getDimensions().Length);*/
+                    
                     cellStyle(ref cell);
                     table.AddCell(cell);
                     
                 }
             }
-           /* for (int j = 0; j < appearance.getDimensions().Length; j++)
-                table.GetCell(appearance.getHeightRatio() - 1, j).SetPaddingBottom(0);*/
-           /* for (int j = 0; j < appearance.getDimensions().Length; j++)
-            {
-                Cell cell = new Cell();
-                cell.SetHeight(0);
-                cell.SetMinHeight(0);
-                cell.SetMaxHeight(0);
-                table.AddCell(cell);
-                    
-            }*/
+           
                 return table;
         }
 
