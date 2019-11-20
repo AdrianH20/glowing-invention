@@ -32,6 +32,7 @@
             this.addFiles = new System.Windows.Forms.Button();
             this.savePDF = new System.Windows.Forms.Button();
             this.panelSelection = new System.Windows.Forms.Panel();
+            this.removeAll_btn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.listBoxImageFile = new System.Windows.Forms.ListBox();
@@ -63,7 +64,7 @@
             // 
             this.removeSelected.Location = new System.Drawing.Point(3, 449);
             this.removeSelected.Name = "removeSelected";
-            this.removeSelected.Size = new System.Drawing.Size(138, 41);
+            this.removeSelected.Size = new System.Drawing.Size(141, 41);
             this.removeSelected.TabIndex = 2;
             this.removeSelected.Text = "Remove Selected";
             this.removeSelected.UseVisualStyleBackColor = true;
@@ -71,9 +72,10 @@
             // 
             // addFiles
             // 
-            this.addFiles.Location = new System.Drawing.Point(147, 449);
+            this.addFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addFiles.Location = new System.Drawing.Point(3, 496);
             this.addFiles.Name = "addFiles";
-            this.addFiles.Size = new System.Drawing.Size(152, 41);
+            this.addFiles.Size = new System.Drawing.Size(285, 41);
             this.addFiles.TabIndex = 3;
             this.addFiles.Text = "Add Files";
             this.addFiles.UseVisualStyleBackColor = true;
@@ -81,17 +83,20 @@
             // 
             // savePDF
             // 
-            this.savePDF.Location = new System.Drawing.Point(502, 457);
+            this.savePDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.savePDF.Location = new System.Drawing.Point(496, 527);
             this.savePDF.Name = "savePDF";
             this.savePDF.Size = new System.Drawing.Size(169, 70);
             this.savePDF.TabIndex = 4;
-            this.savePDF.Text = "Save PDF";
+            this.savePDF.Text = "Save ";
             this.savePDF.UseVisualStyleBackColor = true;
             this.savePDF.Click += new System.EventHandler(this.SavePDF_Click);
             // 
             // panelSelection
             // 
+            this.panelSelection.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panelSelection.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelSelection.Controls.Add(this.removeAll_btn);
             this.panelSelection.Controls.Add(this.label1);
             this.panelSelection.Controls.Add(this.pictureBoxPreview);
             this.panelSelection.Controls.Add(this.listBoxImageFile);
@@ -99,8 +104,18 @@
             this.panelSelection.Controls.Add(this.addFiles);
             this.panelSelection.Location = new System.Drawing.Point(12, 35);
             this.panelSelection.Name = "panelSelection";
-            this.panelSelection.Size = new System.Drawing.Size(304, 501);
+            this.panelSelection.Size = new System.Drawing.Size(304, 543);
             this.panelSelection.TabIndex = 9;
+            // 
+            // removeAll_btn
+            // 
+            this.removeAll_btn.Location = new System.Drawing.Point(150, 449);
+            this.removeAll_btn.Name = "removeAll_btn";
+            this.removeAll_btn.Size = new System.Drawing.Size(138, 41);
+            this.removeAll_btn.TabIndex = 20;
+            this.removeAll_btn.Text = "Remove All";
+            this.removeAll_btn.UseVisualStyleBackColor = true;
+            this.removeAll_btn.Click += new System.EventHandler(this.removeAll_btn_Click);
             // 
             // label1
             // 
@@ -113,9 +128,11 @@
             // 
             // pictureBoxPreview
             // 
-            this.pictureBoxPreview.Location = new System.Drawing.Point(3, 202);
+            this.pictureBoxPreview.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pictureBoxPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBoxPreview.Location = new System.Drawing.Point(-2, 202);
             this.pictureBoxPreview.Name = "pictureBoxPreview";
-            this.pictureBoxPreview.Size = new System.Drawing.Size(296, 241);
+            this.pictureBoxPreview.Size = new System.Drawing.Size(304, 241);
             this.pictureBoxPreview.TabIndex = 18;
             this.pictureBoxPreview.TabStop = false;
             // 
@@ -129,6 +146,7 @@
             this.listBoxImageFile.Size = new System.Drawing.Size(301, 164);
             this.listBoxImageFile.TabIndex = 4;
             this.listBoxImageFile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxImageFile_MouseClick);
+            this.listBoxImageFile.SelectedIndexChanged += new System.EventHandler(this.listBoxImageFile_SelectedIndexChanged);
             // 
             // labelImageFiles
             // 
@@ -301,15 +319,15 @@
             this.labelNrImages.AutoSize = true;
             this.labelNrImages.Location = new System.Drawing.Point(338, 376);
             this.labelNrImages.Name = "labelNrImages";
-            this.labelNrImages.Size = new System.Drawing.Size(93, 17);
+            this.labelNrImages.Size = new System.Drawing.Size(85, 17);
             this.labelNrImages.TabIndex = 18;
-            this.labelNrImages.Text = "Images :      0";
+            this.labelNrImages.Text = "Images :      ";
             // 
             // FormImageToPDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 547);
+            this.ClientSize = new System.Drawing.Size(674, 609);
             this.Controls.Add(this.labelNrImages);
             this.Controls.Add(this.labelFullPages);
             this.Controls.Add(this.labelPageSize);
@@ -361,6 +379,7 @@
         private System.Windows.Forms.Button infoButton;
         private System.Windows.Forms.Label labelFullPages;
         private System.Windows.Forms.Label labelNrImages;
+        private System.Windows.Forms.Button removeAll_btn;
     }
 }
 

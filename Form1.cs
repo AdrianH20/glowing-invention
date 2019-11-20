@@ -28,7 +28,7 @@ namespace JPEGtoPDF
         
         public string saveLocation = Environment.CurrentDirectory;
         
-        int imgNumber = 4;
+        int imgNumber;
 
         List<ImageSelection> listImages = new List<ImageSelection>();
 
@@ -41,6 +41,8 @@ namespace JPEGtoPDF
             textBoxOutputPath.Text = saveLocation;
             pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
             populateComboBox();
+            
+            imgNumber = int.Parse(comboBoxPages.SelectedItem.ToString());
         }
 
         void populateComboBox()
@@ -241,7 +243,9 @@ namespace JPEGtoPDF
                 foreach (ImageSelection img in listImages)
                     if (img.ToString() == listBoxImageFile.SelectedItem.ToString())
                     {
-                        pictureBoxPreview.Image = System.Drawing.Image.FromFile(img.getPath()); break;
+                        System.Drawing.Image imgPreview = System.Drawing.Image.FromFile(img.getPath());
+                        //OrientationChecking.rotateCheckingPreview(ref imgPreview, img.getPath());
+                        pictureBoxPreview.Image = imgPreview; break;
                     }
             }
 
@@ -274,6 +278,35 @@ namespace JPEGtoPDF
             }
 
             labelFullPages.Text = "Full Pages : " + (listImages.Count /imgNumber ).ToString();
+        }
+
+        private void removeAll_btn_Click(object sender, EventArgs e)
+        {
+            List<ImageSelection> imagesToDelete = new List<ImageSelection>();
+
+            foreach (ImageSelection garbage in listBoxImageFile.Items)
+                imagesToDelete.Add(garbage);
+
+            foreach (ImageSelection imageToDelete in imagesToDelete)
+            {
+                listBoxImageFile.Items.Remove(imageToDelete);
+
+                foreach (ImageSelection image in listImages)
+                {
+                    if (image.ToString() == imageToDelete.ToString())
+                    {
+                        listImages.Remove(image);
+                        break;
+                    }
+                }
+            }
+            labelNrImages.Text = "Images :      " + listImages.Count;
+            labelFullPages.Text = "Full Pages : " + (listImages.Count / imgNumber).ToString();
+        }
+
+        private void listBoxImageFile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
     }
