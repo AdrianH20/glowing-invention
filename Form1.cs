@@ -38,11 +38,13 @@ namespace JPEGtoPDF
         public FormImageToPDF()
         {
             InitializeComponent();
+           
             textBoxOutputPath.Text = saveLocation;
             pictureBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
             populateComboBox();
             
             imgNumber = int.Parse(comboBoxPages.SelectedItem.ToString());
+
         }
 
         void populateComboBox()
@@ -217,7 +219,7 @@ namespace JPEGtoPDF
             switch (comboBoxFormat.Text)
             {
                 case "20x20 (cm)": 
-                    pageSize = new PageSize(566.666f, 566.666f);
+                    pageSize = new PageSize(583.666f, 583.666f);
                     appearance = new Appearance(appearanceType, formats.ElementAt(0), imgNumber); break;
                 case "21x30 (cm)": 
                     pageSize = new PageSize(594.999f, 849.999f);

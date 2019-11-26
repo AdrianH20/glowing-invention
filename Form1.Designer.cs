@@ -340,7 +340,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormImageToPDF";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ImageToPDF";
+            this.Text = "PDF Expert Photo";
+            this.TopMost = true;
             this.panelSelection.ResumeLayout(false);
             this.panelSelection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();

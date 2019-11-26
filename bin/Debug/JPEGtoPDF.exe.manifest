@@ -210,14 +210,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPEGtoPDF.exe" size="91624">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JPEGtoPDF.exe" size="158696">
       <assemblyIdentity name="JPEGtoPDF" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>swGfllDSdt9R0OBRw4UHJaOI8s7iniq0m+w2/h215QM=</dsig:DigestValue>
+        <dsig:DigestValue>qke/6+tWFM0SS8yF9VSkoIN0380+KNnBToe4o9gEE6c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -305,6 +305,15 @@
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="favicon.ico" size="32988">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>REb7qidOcuaEFe8Zvf7Pxq73miDT5DBrv+MwhjgyXV0=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="JPEGtoPDF.exe.config" size="189">
     <hash>
       <dsig:Transforms>
